@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";   // à remplacer par l'URL Hugging Face en Phase 6
+const API_URL = "https://improved-space-xylophone-5g5pxqr755r5h4gwx-7860.app.github.dev"; // GitHub Codespaces (port 7860)
 let results = [];
 const $ = id => document.getElementById(id);
 
