@@ -10,8 +10,8 @@ import pytest
 from sklearn.metrics import accuracy_score, f1_score
 
 ROOT = Path(__file__).resolve().parent.parent
-MODEL_PATH = ROOT / "models" / "sentiment_model.joblib"
-VEC_PATH = ROOT / "models" / "tfidf_vectorizer.joblib"
+MODEL_PATH = ROOT / "models" / "model.joblib"
+VEC_PATH = ROOT / "models" / "vectorizer.joblib"
 
 
 @pytest.fixture(scope="module")
