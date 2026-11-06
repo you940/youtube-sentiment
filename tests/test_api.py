@@ -1,7 +1,7 @@
 import time
 import requests
 
-URL = "http://localhost:7860"
+URL = "http://127.0.0.1:7860"
 
 def test_health():
     r = requests.get(f"{URL}/health")
