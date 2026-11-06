@@ -1,10 +1,9 @@
 # Analyse de sentiment des commentaires YouTube
+## TP3 : Projet ML complet, du développement au déploiement cloud
 
-**TP3 : Projet ML complet, du développement au déploiement cloud**
-
-ENSAM Rabat — Université Mohammed V  
-Filière INDIA — 2026/2027  
-Prof. Maria Zemzami
+**ENSAM Rabat — Université Mohammed V**  
+**Filière INDIA — 2026/2027**  
+**Prof. Maria Zemzami**
 
 **Réalisé par : GHANNAM Yousra**
 
@@ -16,9 +15,9 @@ Ce projet consiste à développer un système d'analyse automatique du sentiment
 
 L'application classe les commentaires en trois catégories :
 
-- **Négatif (-1)**
-- **Neutre (0)**
-- **Positif (1)**
+- Négatif (-1)
+- Neutre (0)
+- Positif (1)
 
 Le projet utilise un modèle de Machine Learning basé sur TF-IDF et la régression logistique. Une API FastAPI permet d'effectuer les prédictions, tandis qu'une extension Chrome récupère les commentaires visibles sur YouTube et affiche les résultats.
 
@@ -54,7 +53,7 @@ Affichage dans l'extension Chrome
 ### Technologies utilisées
 
 | Composant | Technologie |
-|:---|:---|
+|---|---|
 | Langage | Python |
 | Prétraitement | Pandas, NumPy |
 | Machine Learning | Scikit-learn |
@@ -131,7 +130,7 @@ Le projet utilise le dataset Reddit Sentiment Analysis.
 Les étiquettes sont :
 
 | Valeur | Sentiment |
-|:---:|:---|
+|---|---|
 | -1 | Négatif |
 | 0 | Neutre |
 | 1 | Positif |
@@ -156,7 +155,7 @@ La vectorisation transforme les commentaires textuels en caractéristiques numé
 Paramètres utilisés :
 
 | Paramètre | Valeur |
-|:---|:---|
+|---|---|
 | Nombre maximal de caractéristiques | 50 000 |
 | N-grammes | (1, 2) |
 | min_df | 2 |
@@ -173,8 +172,8 @@ Trois algorithmes ont été comparés :
 Les résultats obtenus sont :
 
 | Algorithme | Accuracy | F1 macro |
-|:---|---:|---:|
-| Logistic Regression optimisée | **0,8846** | **0,8743** |
+|---|---:|---:|
+| Logistic Regression optimisée | 0,8846 | 0,8743 |
 | LinearSVC | 0,8763 | 0,8643 |
 | Random Forest | 0,7919 | 0,7576 |
 
@@ -187,7 +186,7 @@ Une recherche GridSearchCV a été effectuée avec 3 folds de validation croisé
 Le meilleur paramètre obtenu est :
 
 | Hyperparamètre | Meilleure valeur |
-|:---|:---:|
+|---|---:|
 | C | 50 |
 
 ### 5.4 Rapport de classification
@@ -195,20 +194,20 @@ Le meilleur paramètre obtenu est :
 Résultats obtenus sur le jeu de test :
 
 | Classe | Précision | Rappel | F1-score | Support |
-|:---|---:|---:|---:|---:|
+|---|---:|---:|---:|---:|
 | Négatif (-1) | 0,833 | 0,787 | 0,809 | 1 647 |
 | Neutre (0) | 0,887 | 0,952 | 0,918 | 2 507 |
 | Positif (1) | 0,909 | 0,882 | 0,895 | 3 145 |
-| **Macro moyenne** | **0,876** | **0,874** | **0,874** | **7 299** |
-| **Moyenne pondérée** | **0,884** | **0,885** | **0,884** | **7 299** |
+| Macro moyenne | 0,876 | 0,874 | 0,874 | 7 299 |
+| Moyenne pondérée | 0,884 | 0,885 | 0,884 | 7 299 |
 
 ### 5.5 Résumé des performances
 
 | Critère | Objectif du TP | Résultat obtenu |
-|:---|:---:|---:|
-| Accuracy | ≥ 80 % | **88,46 %** |
-| F1-score par classe | > 0,75 | **0,809 à 0,918** |
-| Inférence sur 50 commentaires | < 100 ms | **10,6 ms en moyenne** |
+|---|---:|---:|
+| Accuracy | ≥ 80 % | 88,46 % |
+| F1-score par classe | > 0,75 | 0,809 à 0,918 |
+| Inférence sur 50 commentaires | < 100 ms | 10,6 ms en moyenne |
 
 Le modèle satisfait les objectifs de performance indiqués dans le TP.
 
@@ -217,7 +216,7 @@ Le modèle satisfait les objectifs de performance indiqués dans le TP.
 Après l'entraînement, le modèle et le vectoriseur sont sauvegardés dans le dossier `models/`.
 
 | Fichier | Description |
-|:---|:---|
+|---|---|
 | `model.joblib` | Modèle de classification entraîné |
 | `vectorizer.joblib` | Vectoriseur TF-IDF entraîné |
 
@@ -259,13 +258,13 @@ pip install -r requirements.txt
 python -m uvicorn app_api:app --host 0.0.0.0 --port 7860
 ```
 
-Documentation interactive :
+**Documentation interactive :**
 
-[http://localhost:7860/docs](http://localhost:7860/docs)
+http://localhost:7860/docs
 
-Vérification de l'état de l'API :
+**Vérification de l'état de l'API :**
 
-[http://localhost:7860/health](http://localhost:7860/health)
+http://localhost:7860/health
 
 ## 8. API FastAPI
 
@@ -341,13 +340,13 @@ Pour une exécution locale :
 const API_URL = "http://localhost:7860";
 ```
 
-Pour une exécution dans GitHub Codespaces, utiliser l'adresse HTTPS publique du port 7860, par exemple :
+Pour une exécution dans GitHub Codespaces :
 
 ```javascript
-const API_URL = "https://ADRESSE-PUBLIQUE-CODESPACE";
+const API_URL = "https://improved-space-xylophone-5g5pxqr755r5h4gwx-7860.app.github.dev";
 ```
 
-L'adresse doit être celle du port 7860, sans ajouter `/docs` ni `/health`.
+L'adresse doit être celle du port 7860, sans ajouter `/docs`, `/health` ou `/predict_batch`.
 
 L'extension utilise ensuite l'endpoint `/predict_batch` pour envoyer les commentaires à l'API.
 
@@ -365,7 +364,7 @@ Depuis le terminal de GitHub Codespaces, à la racine du projet :
 docker build -t youtube-sentiment-api .
 ```
 
-Cette commande construit l'image Docker à partir du `Dockerfile`.
+Cette commande construit l'image Docker à partir du Dockerfile.
 
 ### 10.2. Lancement du conteneur
 
@@ -379,14 +378,14 @@ Vérifier que le conteneur fonctionne :
 docker ps
 ```
 
-Le conteneur doit apparaître avec le statut `Up` et le port `7860` associé.
+Le conteneur doit apparaître avec le statut `Up` et le port 7860 associé.
 
 ### 10.3. Configuration du port public
 
 Dans l'interface GitHub Codespaces :
 
 1. Ouvrir l'onglet **PORTS**.
-2. Repérer le port `7860`.
+2. Repérer le port 7860.
 3. Ouvrir le menu **Port Visibility**.
 4. Sélectionner **Public**.
 5. Copier l'adresse HTTPS publique générée par Codespaces.
@@ -397,9 +396,19 @@ Cette configuration permet d'accéder à l'API depuis l'extérieur du Codespace.
 
 Les endpoints suivants permettent de vérifier le fonctionnement de l'API :
 
-- Vérification de l'état : `https://ADRESSE-CODESPACE/health`
-- Documentation interactive : `https://ADRESSE-CODESPACE/docs`
-- Prédiction par batch : `https://ADRESSE-CODESPACE/predict_batch`
+**Vérification de l'état :**
+
+https://improved-space-xylophone-5g5pxqr755r5h4gwx-7860.app.github.dev/health
+
+**Documentation interactive :**
+
+https://improved-space-xylophone-5g5pxqr755r5h4gwx-7860.app.github.dev/docs
+
+**Prédiction par batch :**
+
+`POST https://improved-space-xylophone-5g5pxqr755r5h4gwx-7860.app.github.dev/predict_batch`
+
+Pour tester la prédiction, utiliser la documentation Swagger (`/docs`) avec une requête POST et un exemple de commentaires.
 
 L'endpoint `/health` doit retourner une réponse indiquant que l'API fonctionne et que le modèle est chargé.
 
@@ -416,12 +425,10 @@ La documentation Swagger est accessible avec `/docs`.
 
 ### 10.5. Connexion de l'extension Chrome
 
-Dans `chrome-extension/popup.js`, configurer `API_URL` avec l'adresse HTTPS publique du port 7860.
-
-Exemple :
+Dans `chrome-extension/popup.js`, configurer `API_URL` avec l'adresse HTTPS publique du port 7860 :
 
 ```javascript
-const API_URL = "https://ADRESSE-PUBLIQUE-CODESPACE";
+const API_URL = "https://improved-space-xylophone-5g5pxqr755r5h4gwx-7860.app.github.dev";
 ```
 
 L'extension communique alors avec l'API exécutée dans le conteneur Docker sur GitHub Codespaces.
@@ -473,13 +480,11 @@ Les tests couvrent notamment :
 - Ajouter le chargement automatique de commentaires.
 - Déployer l'API sur une plateforme d'hébergement permanent.
 
----
-
 ## Conclusion
 
 Ce projet met en œuvre une chaîne complète de Machine Learning, depuis le prétraitement des données jusqu'à l'intégration du modèle dans une API FastAPI et une extension Chrome.
 
-La régression logistique optimisée obtient une accuracy de **88,46 %** et un F1-score macro de **0,8743** sur le jeu de test.
+La régression logistique optimisée obtient une accuracy de 88,46 % et un F1-score macro de 0,8743 sur le jeu de test.
 
 Le projet comprend également une API conteneurisée avec Docker et exécutée dans GitHub Codespaces, avec un accès public via le port 7860.
 
