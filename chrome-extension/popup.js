@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:7860"; // GitHub Codespaces (port 7860)
+const API_URL = "https://improved-space-xylophone-5g5pxqr755r5h4gwx-7860.app.github.dev";
 let results = [];
 const $ = id => document.getElementById(id);
 

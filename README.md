@@ -22,6 +22,8 @@ L'application classe les commentaires en trois catégories :
 
 Le projet utilise un modèle de Machine Learning basé sur TF-IDF et la régression logistique. Une API FastAPI permet d'effectuer les prédictions, tandis qu'une extension Chrome récupère les commentaires visibles sur YouTube et affiche les résultats.
 
+L'objectif est de réaliser une chaîne complète de Machine Learning, depuis la préparation des données jusqu'au déploiement de l'API dans un environnement cloud avec Docker et GitHub Codespaces.
+
 ## 2. Architecture technique
 
 ```text
@@ -63,6 +65,7 @@ Affichage dans l'extension Chrome
 | Extension | HTML, CSS, JavaScript |
 | Tests | Pytest |
 | Conteneurisation | Docker |
+| Environnement cloud | GitHub Codespaces |
 | Versioning | Git et GitHub |
 
 ## 3. Structure du dépôt
@@ -114,6 +117,12 @@ youtube-sentiment/
 │
 └── README.md
 ```
+
+**Remarque concernant les données :**
+
+Les dossiers `data/raw/` et `data/processed/` sont utilisés localement pour stocker les données brutes et prétraitées. Les fichiers CSV ne sont pas inclus dans le dépôt GitHub afin d'éviter de versionner des fichiers de données volumineux. Ils sont exclus par le fichier `.gitignore`.
+
+Les modèles entraînés `model.joblib` et `vectorizer.joblib` sont conservés dans le dépôt afin de permettre à l'API de réaliser les prédictions sans réentraînement.
 
 ## 4. Données et prétraitement
 
@@ -252,11 +261,15 @@ python -m uvicorn app_api:app --host 0.0.0.0 --port 7860
 
 Documentation interactive :
 
-http://localhost:7860/docs
+[http://localhost:7860/docs](http://localhost:7860/docs)
+
+Vérification de l'état de l'API :
+
+[http://localhost:7860/health](http://localhost:7860/health)
 
 ## 8. API FastAPI
 
-L'API expose deux endpoints principaux.
+L'API expose les endpoints principaux suivants.
 
 ### GET /health
 
@@ -289,6 +302,14 @@ Exemple de requête :
 
 L'API retourne les prédictions, les sentiments, les niveaux de confiance et les statistiques globales.
 
+### Documentation interactive
+
+FastAPI fournit une documentation interactive accessible à l'adresse :
+
+`/docs`
+
+Elle permet de consulter les endpoints et de tester les requêtes directement depuis le navigateur.
+
 ## 9. Extension Chrome
 
 L'extension Chrome permet d'analyser les commentaires directement depuis une page YouTube.
@@ -306,37 +327,106 @@ L'extension Chrome permet d'analyser les commentaires directement depuis une pag
 ### Installation
 
 1. Ouvrir Google Chrome.
-2. Accéder à `chrome://extensions`.
+2. Accéder à `chrome://extensions/`.
 3. Activer le mode développeur.
 4. Cliquer sur « Charger l'extension non empaquetée ».
 5. Sélectionner le dossier `chrome-extension/`.
-6. Vérifier que l'URL de l'API dans `popup.js` correspond à l'adresse du serveur.
+6. Vérifier que la constante `API_URL` dans `popup.js` correspond à l'adresse du serveur FastAPI.
 
-## 10. Déploiement avec Docker et GitHub Codespaces
+### Configuration de l'adresse de l'API
 
-Le projet utilise Docker pour conteneuriser l'API.
+Pour une exécution locale :
 
-### Construire l'image Docker
+```javascript
+const API_URL = "http://localhost:7860";
+```
+
+Pour une exécution dans GitHub Codespaces, utiliser l'adresse HTTPS publique du port 7860, par exemple :
+
+```javascript
+const API_URL = "https://ADRESSE-PUBLIQUE-CODESPACE";
+```
+
+L'adresse doit être celle du port 7860, sans ajouter `/docs` ni `/health`.
+
+L'extension utilise ensuite l'endpoint `/predict_batch` pour envoyer les commentaires à l'API.
+
+Après toute modification de `popup.js`, il faut enregistrer le fichier, actualiser l'extension depuis `chrome://extensions/` et recharger la page YouTube.
+
+## 10. Déploiement avec Docker dans GitHub Codespaces
+
+Le projet utilise Docker pour conteneuriser l'API FastAPI et GitHub Codespaces pour exécuter le conteneur dans un environnement cloud.
+
+### 10.1. Construction de l'image Docker
+
+Depuis le terminal de GitHub Codespaces, à la racine du projet :
 
 ```bash
 docker build -t youtube-sentiment-api .
 ```
 
-### Lancer le conteneur
+Cette commande construit l'image Docker à partir du `Dockerfile`.
+
+### 10.2. Lancement du conteneur
 
 ```bash
-docker run -d -p 7860:7860 youtube-sentiment-api
+docker run -d --name youtube-sentiment-container -p 7860:7860 youtube-sentiment-api
 ```
 
-### Vérifier l'API
+Vérifier que le conteneur fonctionne :
 
 ```bash
-curl http://localhost:7860/health
+docker ps
 ```
 
-Dans GitHub Codespaces, le port 7860 doit être rendu public pour permettre à l'extension Chrome de communiquer avec l'API.
+Le conteneur doit apparaître avec le statut `Up` et le port `7860` associé.
 
-L'URL publique doit ensuite être configurée dans `chrome-extension/popup.js`.
+### 10.3. Configuration du port public
+
+Dans l'interface GitHub Codespaces :
+
+1. Ouvrir l'onglet **PORTS**.
+2. Repérer le port `7860`.
+3. Ouvrir le menu **Port Visibility**.
+4. Sélectionner **Public**.
+5. Copier l'adresse HTTPS publique générée par Codespaces.
+
+Cette configuration permet d'accéder à l'API depuis l'extérieur du Codespace.
+
+### 10.4. Vérification du déploiement
+
+Les endpoints suivants permettent de vérifier le fonctionnement de l'API :
+
+- Vérification de l'état : `https://ADRESSE-CODESPACE/health`
+- Documentation interactive : `https://ADRESSE-CODESPACE/docs`
+- Prédiction par batch : `https://ADRESSE-CODESPACE/predict_batch`
+
+L'endpoint `/health` doit retourner une réponse indiquant que l'API fonctionne et que le modèle est chargé.
+
+Exemple :
+
+```json
+{
+  "status": "ok",
+  "model_loaded": true
+}
+```
+
+La documentation Swagger est accessible avec `/docs`.
+
+### 10.5. Connexion de l'extension Chrome
+
+Dans `chrome-extension/popup.js`, configurer `API_URL` avec l'adresse HTTPS publique du port 7860.
+
+Exemple :
+
+```javascript
+const API_URL = "https://ADRESSE-PUBLIQUE-CODESPACE";
+```
+
+L'extension communique alors avec l'API exécutée dans le conteneur Docker sur GitHub Codespaces.
+
+**Remarque :** l'API est accessible publiquement lorsque le Codespace est actif et que le port 7860 est configuré en Public. L'adresse peut devenir inaccessible lorsque le Codespace est arrêté ou suspendu. Il faut alors redémarrer le Codespace et relancer le conteneur si nécessaire.
 
 ## 11. Tests et validation
 
@@ -373,6 +463,7 @@ Les tests couvrent notamment :
 - Les commentaires en français et en arabe peuvent être moins bien classés.
 - L'ironie et le sarcasme restent difficiles à détecter.
 - L'extension analyse les commentaires déjà chargés sur la page YouTube.
+- Le déploiement Codespaces dépend de l'activité du Codespace.
 
 ### Améliorations possibles
 
@@ -386,8 +477,10 @@ Les tests couvrent notamment :
 
 ## Conclusion
 
-Ce projet met en œuvre une chaîne complète de Machine Learning, depuis le prétraitement des données jusqu'à l'intégration du modèle dans une API et une extension Chrome.
+Ce projet met en œuvre une chaîne complète de Machine Learning, depuis le prétraitement des données jusqu'à l'intégration du modèle dans une API FastAPI et une extension Chrome.
 
-La régression logistique optimisée obtient une accuracy de 88,46 % et un F1-score macro de 0,8743 sur le jeu de test.
+La régression logistique optimisée obtient une accuracy de **88,46 %** et un F1-score macro de **0,8743** sur le jeu de test.
 
-L'ensemble constitue une solution de classification automatique des sentiments intégrant des outils de développement, de test et de déploiement.
+Le projet comprend également une API conteneurisée avec Docker et exécutée dans GitHub Codespaces, avec un accès public via le port 7860.
+
+L'ensemble constitue une solution de classification automatique des sentiments intégrant des outils de développement, de test, de conteneurisation et de déploiement cloud.
