@@ -1,0 +1,27 @@
+RAPPORT DE PERFORMANCE - ANALYSE DE SENTIMENT YOUTUBE
+
+Modèles évalués :
+- Logistic Regression
+- LinearSVC
+- Random Forest
+
+Comparaison des performances :
+- Logistic Regression : Accuracy = 0.8846 ; Macro F1-score = 0.8743
+- LinearSVC : Accuracy = 0.8763 ; Macro F1-score = 0.8643
+- Random Forest : Accuracy = 0.7919 ; Macro F1-score = 0.7576
+
+Modèle retenu : Logistic Regression
+
+Rapport de classification du modèle retenu :
+- Classe -1 : Precision = 0.833 ; Recall = 0.787 ; F1-score = 0.809
+- Classe 0 : Precision = 0.887 ; Recall = 0.952 ; F1-score = 0.918
+- Classe 1 : Precision = 0.909 ; Recall = 0.882 ; F1-score = 0.895
+
+Accuracy globale : 0.885
+Macro average F1-score : 0.874
+Weighted average F1-score : 0.884
+
+Les visualisations associées sont disponibles dans ce dossier :
+- class_distribution.png
+- confusion_matrix.png
+- text_length.png
