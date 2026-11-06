@@ -5,7 +5,7 @@ ENSAM Rabat — Université Mohammed V
 Filière INDIA — 2026/2027  
 Prof. Maria Zemzami
 
-**Réalisé par : GHANNAM Yousra
+**Réalisé par : GHANNAM Yousra**
 
 ---
 
@@ -228,7 +228,7 @@ Ces fichiers sont utilisés par l'API pour effectuer les prédictions sans réen
 ### Cloner le dépôt
 
 ```bash
-git clone https://github.com/TON-PSEUDO/youtube-sentiment.git
+git clone https://github.com/you940/youtube-sentiment
 cd youtube-sentiment
 ```
 
