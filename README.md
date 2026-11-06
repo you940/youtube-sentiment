@@ -1,6 +1,7 @@
 # Analyse de sentiment des commentaires YouTube
 
-**TP3 : Projet ML complet, du développement au déploiement cloud**  
+**TP3 : Projet ML complet, du développement au déploiement cloud**
+
 ENSAM Rabat — Université Mohammed V  
 Filière INDIA — 2026/2027  
 Prof. Maria Zemzami
@@ -202,10 +203,6 @@ Résultats obtenus sur le jeu de test :
 
 Le modèle satisfait les objectifs de performance indiqués dans le TP.
 
-### 5.6 Matrice de confusion
-
-![Matrice de confusion](reports/confusion_matrix.png)
-
 ## 6. Sauvegarde du modèle
 
 Après l'entraînement, le modèle et le vectoriseur sont sauvegardés dans le dossier `models/`.
@@ -228,7 +225,7 @@ Ces fichiers sont utilisés par l'API pour effectuer les prédictions sans réen
 ### Cloner le dépôt
 
 ```bash
-git clone https://github.com/you940/youtube-sentiment
+git clone https://github.com/you940/youtube-sentiment.git
 cd youtube-sentiment
 ```
 
@@ -255,9 +252,7 @@ python -m uvicorn app_api:app --host 0.0.0.0 --port 7860
 
 Documentation interactive :
 
-```text
 http://localhost:7860/docs
-```
 
 ## 8. API FastAPI
 
@@ -267,7 +262,7 @@ L'API expose deux endpoints principaux.
 
 Permet de vérifier l'état de l'API et le chargement du modèle.
 
-Exemple :
+Exemple de réponse :
 
 ```json
 {
@@ -316,16 +311,6 @@ L'extension Chrome permet d'analyser les commentaires directement depuis une pag
 4. Cliquer sur « Charger l'extension non empaquetée ».
 5. Sélectionner le dossier `chrome-extension/`.
 6. Vérifier que l'URL de l'API dans `popup.js` correspond à l'adresse du serveur.
-
-### Captures d'écran
-
-**Résultats de l'analyse :**
-
-![Résultats de l'extension](docs/images/extension-resultats.png)
-
-**Mode sombre :**
-
-![Mode sombre](docs/images/extension-dark.png)
 
 ## 10. Déploiement avec Docker et GitHub Codespaces
 
