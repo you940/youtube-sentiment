@@ -211,6 +211,12 @@ Résultats obtenus sur le jeu de test :
 
 Le modèle satisfait les objectifs de performance indiqués dans le TP.
 
+### 5.6 Matrice de confusion
+
+![Matrice de confusion](reports/confusion_matrix.png)
+
+La diagonale correspond aux prédictions correctes. La classe négative est la plus difficile (rappel 0,787), avec des confusions surtout avec la classe neutre.
+
 ## 6. Sauvegarde du modèle
 
 Après l'entraînement, le modèle et le vectoriseur sont sauvegardés dans le dossier `models/`.
@@ -462,13 +468,30 @@ Les tests couvrent notamment :
 - Les performances du modèle.
 - Le temps d'inférence.
 
-## 12. Limites et perspectives
+## 12. Démonstration
+
+### Extension Chrome : analyse du trailer *Snow White*
+
+**Mode clair**
+
+![Extension en mode clair](docs/images/extension_clair.png)
+
+**Mode sombre, filtre Positif**
+
+![Mode sombre, commentaires positifs](docs/images/extension_sombre_positif.png)
+
+**Mode sombre, filtre Négatif**
+
+![Mode sombre, commentaires négatifs](docs/images/extension_sombre_negatif.png)
+
+## 13. Limites et perspectives
 
 ### Limites
 
 - Le modèle est entraîné sur des commentaires Reddit en anglais.
 - Les commentaires en français et en arabe peuvent être moins bien classés.
 - L'ironie et le sarcasme restent difficiles à détecter.
+- Sur le trailer *Snow White* (200 commentaires), le modèle donne 39,5 % de positif, 48,5 % de neutre et 12 % de négatif, alors que la plupart des commentaires sont sarcastiques et critiques : le sarcasme est souvent classé « neutre » ou « positif ».
 - L'extension analyse les commentaires déjà chargés sur la page YouTube.
 - Le déploiement Codespaces dépend de l'activité du Codespace.
 
