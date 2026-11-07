@@ -215,7 +215,7 @@ Le modèle satisfait les objectifs de performance indiqués dans le TP.
 
 ![Matrice de confusion](reports/confusion_matrix.png)
 
-La diagonale correspond aux prédictions correctes. La classe négative est la plus difficile (rappel 0,787), avec des confusions surtout avec la classe neutre.
+La diagonale correspond aux prédictions correctes. La classe négative est la plus difficile (rappel 0,787), avec des confusions surtout avec la classe positive (219 cas), puis avec la classe neutre (132 cas).
 
 ## 6. Sauvegarde du modèle
 
@@ -487,7 +487,7 @@ Les tests couvrent notamment :
 - Le modèle est entraîné sur des commentaires Reddit en anglais.
 - Les commentaires en français et en arabe peuvent être moins bien classés.
 - L'ironie et le sarcasme restent difficiles à détecter.
-- Sur le trailer *Snow White* (200 commentaires), le modèle donne 39,5 % de positif, 48,5 % de neutre et 12 % de négatif, alors que la plupart des commentaires sont sarcastiques et critiques : le sarcasme est souvent classé « neutre » ou « positif ».
+- Sur le trailer Snow White (200 commentaires), le modèle donne 40,5 % de positif, 49 % de neutre et 10,5 % de négatif, alors que la plupart des commentaires sont sarcastiques et critiques : le sarcasme est souvent classé « neutre » ou « positif ».
 - L'extension analyse les commentaires déjà chargés sur la page YouTube.
 - Le déploiement Codespaces dépend de l'activité du Codespace.
 
