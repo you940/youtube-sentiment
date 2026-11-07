@@ -19,6 +19,4 @@ body.dark button { background: #333; color: #eee; border-color: #555; }
 #list li small { display: block; opacity: 0.7; }
 li.s1 { border-color: #2ecc71; }
 li.s-1 { border-color: #e74c3c; }
-#limit-row { font-size: 13px; margin: 8px 0 0; }
-#limit { width: 80px; padding: 4px; margin-left: 6px; }
-body.dark #limit { background: #333; color: #eee; border: 1px solid #555; }
+
