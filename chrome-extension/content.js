@@ -1,11 +1,10 @@
-function extractComments(limit = 200) {
+function extractComments() {
   const nodes = document.querySelectorAll(
     "ytd-comment-thread-renderer #content-text"
   );
   return Array.from(nodes)
     .map(n => n.innerText.trim())
-    .filter(t => t.length > 0)
-    .slice(0, limit);
+    .filter(t => t.length > 0);
 }
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
