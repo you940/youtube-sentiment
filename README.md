@@ -474,15 +474,11 @@ Les tests couvrent notamment :
 
 **Mode clair**
 
-![Extension en mode clair](docs/images/extension_clair.png)
+![Extension en mode clair](docs/images/Extension_clair.png)
 
-**Mode sombre, filtre Positif**
+**Mode sombre**
 
-![Mode sombre, commentaires positifs](docs/images/extension_sombre_positif.png)
-
-**Mode sombre, filtre Négatif**
-
-![Mode sombre, commentaires négatifs](docs/images/extension_sombre_negatif.png)
+![Extension en mode sombre](docs/images/Extension_dark.png)
 
 ## 13. Limites et perspectives
 
